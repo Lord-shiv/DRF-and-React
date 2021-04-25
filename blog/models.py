@@ -13,6 +13,8 @@ class Category(models.Model):
 class Post(models.Model):
 
     class PostObjects(models.Manager):
+        '''going to display only posts with published tag'''
+
         def get_queryset(self):
             return super().get_queryset() .filter(status='published')
 
