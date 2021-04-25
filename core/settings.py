@@ -127,9 +127,18 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ]
 }
+
+# Project Level Permissions
+# AllowAny
+# IsAuthenticated
+# IsAdminUser
+# IsAuthenticatedOrReadOnly
+
+# View Level Permissions --> DjangoModelPermissions (only applied to only views with queryset)
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
