@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.validators import MinLengthValidator
 
 
 class Category(models.Model):
@@ -13,6 +14,8 @@ class Category(models.Model):
 class Post(models.Model):
 
     class PostObjects(models.Manager):
+        '''going to display only posts with published tag'''
+
         def get_queryset(self):
             return super().get_queryset() .filter(status='published')
 
@@ -23,7 +26,8 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length=250)
-    excerpt = models.TextField(null=True)
+    excerpt = models.TextField(null=True, max_length=500, validators=[
+                               MinLengthValidator(55)])
     content = models.TextField()
     slug = models.SlugField(max_length=250, unique_for_date='published')
     published = models.DateTimeField(default=timezone.now)
