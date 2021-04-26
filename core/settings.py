@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'blog_api',
     'rest_framework',
     'corsheaders',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -127,8 +128,12 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
 }
 
 # Project Level Permissions
@@ -143,3 +148,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
 ]
+
+
+# Custom user model
+AUTH_USER_MODEL = "users.NewUser"
